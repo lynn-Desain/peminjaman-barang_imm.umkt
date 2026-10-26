@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#17264b">
+  <meta name="description" content="Sistem inventaris peminjaman dan pengembalian barang IMM–UMKT.">
+  <title>Inventaris IMM × UMKT</title>
+  <link rel="icon" href="assets/logo-imm.png" type="image/png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="toast-region" class="toast-region" aria-live="polite" aria-atomic="true"></div>
+
+  <section id="login-screen" class="login-screen">
+    <div class="login-decoration decoration-one"></div>
+    <div class="login-decoration decoration-two"></div>
+    <div class="login-panel">
+      <div class="brand-lockup brand-lockup-login">
+        <div class="brand-logos">
+          <img src="assets/logo-imm.png" alt="Logo IMM" class="logo-imm">
+          <span class="brand-divider"></span>
+          <img src="assets/logo-umkt.png" alt="Logo Universitas Muhammadiyah Kalimantan Timur" class="logo-umkt">
+        </div>
+        <div class="brand-copy"><span class="eyebrow">SISTEM INFORMASI ORGANISASI</span><strong>Inventaris<span>Ku</span></strong><small>IMM × UMKT</small></div>
+      </div>
+      <div class="login-intro">
+        <span class="pill pill-gold">Rapi · Cepat · Terpantau</span>
+        <h1>Barang terdata,<br><em>kegiatan lebih lancar.</em></h1>
+        <p>Kelola inventaris, peminjaman, dan pengembalian dari satu tempat. Dirancang nyaman digunakan lewat ponsel.</p>
+      </div>
+      <form id="login-form" class="login-form">
+        <label for="login-email">Email</label>
+        <input id="login-email" type="email" autocomplete="username" placeholder="nama@organisasi.id" required>
+        <label for="login-password">Kata sandi</label>
+        <div class="password-wrap"><input id="login-password" type="password" autocomplete="current-password" placeholder="Masukkan kata sandi" required><button type="button" id="toggle-password" class="eye-btn" aria-label="Tampilkan kata sandi">◉</button></div>
+        <button type="submit" class="btn btn-primary btn-full" id="login-submit">Masuk ke aplikasi <span>↗</span></button>
+        <p id="login-help" class="form-note">Gunakan akun yang didaftarkan oleh admin.</p>
+      </form>
+      <div id="demo-login" class="demo-login">
+        <div class="or-divider"><span>atau coba dulu</span></div>
+        <div class="demo-buttons"><button class="btn btn-soft" data-demo-role="admin">Lihat sebagai Admin</button><button class="btn btn-outline" data-demo-role="staff">Lihat sebagai Pengguna</button></div>
+        <p class="form-note">Mode demo menyimpan data di perangkat ini, tanpa menghubungkan akun sungguhan.</p>
+      </div>
+      <div class="login-footer"><span>© IMM–UMKT · InventarisKu</span><span><i class="secure-dot"></i> Data dikelola sesuai peran</span></div>
+    </div>
+    <aside class="login-aside">
+      <div class="aside-badge"><span class="badge-spark">✦</span><span>INVENTARIS ORGANISASI</span></div>
+      <div class="aside-visual">
+        <div class="visual-orbit orbit-a"></div><div class="visual-orbit orbit-b"></div>
+        <div class="visual-card card-back"><span class="visual-icon">▤</span><div><b>Pengembalian</b><small>Terlacak dan tertata</small></div><span class="tiny-check">✓</span></div>
+        <div class="visual-card card-front"><div class="visual-card-top"><span class="mini-mark">IK</span><span class="live-label"><i></i> LIVE STATUS</span></div><div class="visual-item"><div class="item-thumb purple">▣</div><div><b>Proyektor Epson</b><small>Elektronik · INV-002</small></div></div><div class="visual-status-row"><span class="status-label"><i></i> Dipinjam</span><span class="visual-date">Kembali 24 Okt</span></div><div class="visual-progress"><span></span></div><div class="visual-stats"><div><small>Total barang</small><b>128</b></div><div><small>Sedang dipinjam</small><b>16</b></div><div><small>Perlu kembali</small><b>03</b></div></div></div>
+        <div class="floating-dot dot-a">✓</div><div class="floating-dot dot-b">↻</div>
+      </div>
+      <div class="aside-copy"><h2>Satu alur kerja.<br><span>Lebih sedikit ribet.</span></h2><p>Foto barang, catat peminjaman, pantau jatuh tempo, lalu ekspor laporan saat dibutuhkan.</p><div class="feature-points"><span>✓ Sinkronisasi otomatis</span><span>✓ Tetap bisa dipakai offline</span><span>✓ Nyaman di layar ponsel</span></div></div>
+      <div class="aside-bottom"><span>IMM</span><span class="aside-line"></span><span>UNIVERSITAS MUHAMMADIYAH KALIMANTAN TIMUR</span></div>
+    </aside>
+  </section>
+
+  <div id="app" class="app-shell hidden">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-logos compact"><img src="assets/logo-imm.png" alt="Logo IMM"><span></span><img src="assets/logo-umkt.png" alt="Logo UMKT"></div>
+        <div class="sidebar-brand-copy"><strong>Inventaris<span>Ku</span></strong><small>IMM × UMKT</small></div>
+      </div>
+      <div class="workspace-label">RUANG KERJA <span>⌄</span></div>
+      <nav class="main-nav" aria-label="Navigasi utama">
+        <button class="nav-item active" data-page="dashboard"><span class="nav-icon">▦</span><span>Ringkasan</span></button>
+        <button class="nav-item" data-page="inventory"><span class="nav-icon">▤</span><span>Data Barang</span><span class="nav-count" id="nav-items-count">0</span></button>
+        <button class="nav-item" data-page="loans"><span class="nav-icon">⇄</span><span>Peminjaman</span><span class="nav-count warning" id="nav-loans-count">0</span></button>
+        <button class="nav-item" data-page="reports"><span class="nav-icon">▥</span><span>Laporan</span></button>
+      </nav>
+      <div class="sidebar-spacer"></div>
+      <div class="sync-card"><div class="sync-card-icon">↻</div><div><b id="sync-title">Data di perangkat</b><small id="sync-subtitle">Mode demo aktif</small></div><span id="sync-indicator" class="sync-dot"></span></div>
+      <div class="sidebar-user"><div class="avatar" id="sidebar-avatar">A</div><div class="user-copy"><strong id="sidebar-name">Admin IMM</strong><small id="sidebar-role">Administrator</small></div><button id="logout-btn" class="logout-icon" title="Keluar" aria-label="Keluar">↪</button></div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <button class="mobile-menu icon-btn" id="mobile-menu" aria-label="Buka navigasi">☰</button>
+        <div class="breadcrumb"><span>IMM × UMKT</span><b>/</b><strong id="breadcrumb-title">Ringkasan</strong></div>
+        <div class="top-actions">
+          <div class="connection-chip" id="connection-chip"><i></i><span id="connection-text">Terhubung</span></div>
+          <button class="icon-btn notification-btn" id="notification-btn" title="Aktifkan notifikasi" aria-label="Aktifkan notifikasi">♧<span class="notification-dot"></span></button>
+          <button class="icon-btn theme-btn" id="theme-btn" title="Aktifkan mode gelap" aria-label="Ganti tema">☾</button>
+          <div class="top-avatar" id="top-avatar">A</div>
+        </div>
+      </header>
+      <div class="network-banner hidden" id="network-banner"><span>↯</span><div><b>Anda sedang offline</b><small>Perubahan akan disimpan di perangkat dan disinkronkan saat koneksi kembali.</small></div><span class="banner-status">MODE OFFLINE</span></div>
+      <section class="page-view active" id="page-dashboard">
+        <div class="page-heading dashboard-heading"><div><div class="eyebrow blue-eyebrow" id="today-label">KAMIS, 22 OKTOBER 2026</div><h1>Halo, <span id="welcome-name">Admin</span> 👋</h1><p>Ini ringkasan inventaris dan aktivitas organisasi hari ini.</p></div><button class="btn btn-primary" id="quick-borrow"><span>＋</span> Catat peminjaman</button></div>
+        <div class="stat-grid">
+          <article class="stat-card"><div class="stat-card-head"><span>Total jenis barang</span><span class="stat-icon icon-blue">▤</span></div><div class="stat-number" id="stat-total">0</div><div class="stat-footer"><span class="stat-helper">Barang terdata</span><span class="stat-trend">▥ Inventaris</span></div></article>
+          <article class="stat-card"><div class="stat-card-head"><span>Tersedia sekarang</span><span class="stat-icon icon-green">✓</span></div><div class="stat-number" id="stat-available">0</div><div class="stat-footer"><span class="stat-helper">Siap dipinjam</span><span class="stat-pill positive" id="availability-percent">0% tersedia</span></div></article>
+          <article class="stat-card"><div class="stat-card-head"><span>Sedang dipinjam</span><span class="stat-icon icon-violet">⇄</span></div><div class="stat-number" id="stat-borrowed">0</div><div class="stat-footer"><span class="stat-helper">Belum dikembalikan</span><button class="text-link" data-go="loans">Lihat semua ↗</button></div></article>
+          <article class="stat-card"><div class="stat-card-head"><span>Jatuh tempo</span><span class="stat-icon icon-orange">◷</span></div><div class="stat-number" id="stat-due">0</div><div class="stat-footer"><span class="stat-helper">Perlu ditindaklanjuti</span><span class="stat-pill warning-pill">Butuh perhatian</span></div></article>
+        </div>
+        <div class="dashboard-grid">
+          <section class="panel recent-panel"><div class="panel-heading"><div><h2>Aktivitas peminjaman</h2><p>Transaksi terbaru dari inventaris Anda.</p></div><button class="text-link" data-go="loans">Lihat semua ↗</button></div><div id="recent-loans" class="recent-list"></div><div id="recent-empty" class="empty-state hidden"><div class="empty-art">⇄</div><b>Belum ada peminjaman</b><p>Transaksi baru akan muncul di sini.</p><button class="btn btn-soft btn-small" id="empty-borrow">Catat peminjaman</button></div></section>
+          <section class="panel due-panel"><div class="panel-heading"><div><h2>Perlu dikembalikan</h2><p>Barang yang mendekati atau melewati tenggat.</p></div><span class="panel-mini-count" id="due-count">0</span></div><div id="due-list" class="due-list"></div><div id="due-empty" class="empty-state compact-empty hidden"><div class="empty-check">✓</div><b>Semua aman!</b><p>Tidak ada barang yang perlu dikembalikan segera.</p></div></section>
+        </div>
+        <section class="panel quick-actions-panel"><div class="panel-heading"><div><h2>Akses cepat</h2><p>Langsung lakukan hal yang sering digunakan.</p></div></div><div class="quick-actions"><button class="quick-action" id="quick-add-item"><span class="quick-action-icon q-blue">＋</span><span><b>Tambah barang</b><small>Daftarkan barang baru</small></span><span class="quick-arrow">↗</span></button><button class="quick-action" id="quick-see-items"><span class="quick-action-icon q-gold">▤</span><span><b>Cek ketersediaan</b><small>Lihat stok yang tersedia</small></span><span class="quick-arrow">↗</span></button><button class="quick-action" id="quick-export"><span class="quick-action-icon q-green">⇩</span><span><b>Ekspor laporan</b><small>Unduh data dalam CSV</small></span><span class="quick-arrow">↗</span></button></div></section>
+      </section>
+
+      <section class="page-view" id="page-inventory">
+        <div class="page-heading"><div><div class="eyebrow blue-eyebrow">PUSAT INVENTARIS</div><h1>Data barang</h1><p>Kelola barang, stok, kondisi, dan informasi masa pakai.</p></div><button class="btn btn-primary admin-only" id="add-item-btn"><span>＋</span> Tambah barang</button></div>
+        <div class="toolbar panel"><div class="search-box"><span>⌕</span><input id="inventory-search" type="search" placeholder="Cari nama, kode, atau kategori…"></div><select id="inventory-filter" aria-label="Filter ketersediaan"><option value="all">Semua status</option><option value="available">Tersedia</option><option value="borrowed">Sedang dipinjam</option><option value="empty">Stok habis</option></select><div class="toolbar-count" id="inventory-count">0 barang</div></div>
+        <div id="inventory-grid" class="inventory-grid"></div><div id="inventory-empty" class="panel empty-state hidden"><div class="empty-art">▤</div><b>Barang belum ditemukan</b><p>Coba ubah kata kunci atau tambahkan data barang.</p><button class="btn btn-soft btn-small admin-only" id="inventory-empty-add">＋ Tambah barang</button></div>
+      </section>
+
+      <section class="page-view" id="page-loans">
+        <div class="page-heading"><div><div class="eyebrow blue-eyebrow">RIWAYAT TRANSAKSI</div><h1>Peminjaman</h1><p>Pantau barang yang dipinjam dan pastikan pengembalian tepat waktu.</p></div><button class="btn btn-primary" id="add-loan-btn"><span>＋</span> Catat peminjaman</button></div>
+        <div class="toolbar panel loan-toolbar"><div class="search-box"><span>⌕</span><input id="loan-search" type="search" placeholder="Cari peminjam atau barang…"></div><div class="filter-tabs" id="loan-tabs"><button class="filter-tab active" data-loan-filter="all">Semua <span id="tab-all-count">0</span></button><button class="filter-tab" data-loan-filter="borrowed">Dipinjam <span id="tab-active-count">0</span></button><button class="filter-tab" data-loan-filter="due">Jatuh tempo <span id="tab-due-count">0</span></button><button class="filter-tab" data-loan-filter="returned">Dikembalikan <span id="tab-returned-count">0</span></button></div></div>
+        <div class="panel table-panel"><div class="table-scroll"><table class="data-table"><thead><tr><th>BARANG</th><th>PEMINJAM</th><th>TANGGAL PINJAM</th><th>BATAS KEMBALI</th><th>STATUS</th><th>AKSI</th></tr></thead><tbody id="loan-table-body"></tbody></table></div><div id="loan-empty" class="empty-state hidden"><div class="empty-art">⇄</div><b>Belum ada transaksi</b><p>Peminjaman baru yang dicatat akan tampil di sini.</p><button class="btn btn-soft btn-small" id="loan-empty-add">Catat peminjaman</button></div></div>
+      </section>
+
+      <section class="page-view" id="page-reports">
+        <div class="page-heading"><div><div class="eyebrow blue-eyebrow">DATA SIAP DIANALISIS</div><h1>Laporan</h1><p>Ringkasan data inventaris dan riwayat peminjaman yang dapat diunduh.</p></div><button class="btn btn-primary" id="export-all-btn">⇩ Ekspor seluruh data</button></div>
+        <div class="report-stat-grid"><article class="report-stat"><div class="report-icon r-blue">▤</div><div><small>Jenis barang</small><b id="report-items">0</b></div></article><article class="report-stat"><div class="report-icon r-violet">⇄</div><div><small>Total transaksi</small><b id="report-loans">0</b></div></article><article class="report-stat"><div class="report-icon r-green">✓</div><div><small>Sudah kembali</small><b id="report-returned">0</b></div></article><article class="report-stat"><div class="report-icon r-orange">◷</div><div><small>Terlambat</small><b id="report-late">0</b></div></article></div>
+        <div class="report-grid"><section class="panel"><div class="panel-heading"><div><h2>Ekspor data</h2><p>Pilih data yang ingin dianalisis di spreadsheet.</p></div><span class="report-download-icon">⇩</span></div><div class="export-option"><div class="export-file-icon">CSV</div><div class="export-copy"><b>Data inventaris</b><small>Nama barang, kode, kategori, jumlah, ketersediaan, kondisi.</small></div><button class="btn btn-outline btn-small" id="export-items-btn">Unduh CSV</button></div><div class="export-option"><div class="export-file-icon purple-file">CSV</div><div class="export-copy"><b>Riwayat peminjaman</b><small>Data peminjam, waktu, tenggat, status, dan pengembalian.</small></div><button class="btn btn-outline btn-small" id="export-loans-btn">Unduh CSV</button></div><div class="export-option"><div class="export-file-icon green-file">CSV</div><div class="export-copy"><b>Rekap bulanan</b><small>Ringkasan jumlah peminjaman dan pengembalian per bulan.</small></div><button class="btn btn-outline btn-small" id="export-monthly-btn">Unduh CSV</button></div></section>
+        <section class="panel report-note-panel"><div class="report-note-icon">✦</div><h2>Data yang lebih tertata.</h2><p>File CSV bisa dibuka di Microsoft Excel, Google Sheets, atau aplikasi analisis data lainnya.</p><div class="report-note-list"><span><i>✓</i> UTF-8 agar teks tetap terbaca</span><span><i>✓</i> Nama kolom jelas</span><span><i>✓</i> Waktu menggunakan format lokal Indonesia</span></div><div class="report-note-footer">Tips: ekspor laporan secara berkala sebagai arsip organisasi.</div></section></div>
+      </section>
+
+      <footer class="app-footer"><span>InventarisKu <b>IMM × UMKT</b></span><span id="footer-sync">Semua perubahan tersimpan di perangkat ini</span></footer>
+    </main>
+    <nav class="mobile-nav" aria-label="Navigasi seluler"><button class="mobile-nav-item active" data-page="dashboard"><span>▦</span><small>Ringkasan</small></button><button class="mobile-nav-item" data-page="inventory"><span>▤</span><small>Barang</small></button><button class="mobile-nav-item" data-page="loans"><span>⇄</span><small>Pinjaman</small></button><button class="mobile-nav-item" data-page="reports"><span>▥</span><small>Laporan</small></button></nav>
+  </div>
+
+  <div id="modal-root"></div>
+  <div id="scan-root"></div>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

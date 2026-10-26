@@ -1,0 +1,42 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() { return request.auth != null; }
+    function roleDoc() {
+      return get(/databases/$(database)/documents/userRoles/$(request.auth.uid));
+    }
+    function isAdmin() {
+      return signedIn() && roleDoc().data.role == 'admin';
+    }
+
+    match /userRoles/{uid} {
+      allow read: if signedIn() && (request.auth.uid == uid || isAdmin());
+      // Role assignment harus dikelola admin tepercaya dari Firebase Console/server.
+      allow create, update, delete: if isAdmin();
+    }
+
+    match /items/{itemId} {
+      allow read: if signedIn();
+      allow create, update, delete: if isAdmin();
+    }
+
+    match /loans/{loanId} {
+      allow read: if isAdmin() || (signedIn() && resource.data.borrowerUid == request.auth.uid);
+      allow create: if signedIn() && (
+        isAdmin() || request.resource.data.borrowerUid == request.auth.uid
+      );
+      allow update: if isAdmin() || (
+        signedIn() && resource.data.borrowerUid == request.auth.uid &&
+        request.resource.data.borrowerUid == request.auth.uid &&
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly([
+          'status', 'returnedAt', 'returnNote', 'note', 'updatedAt'
+        ])
+      );
+      allow delete: if isAdmin();
+    }
+
+    match /users/{uid}/tokens/{tokenId} {
+      allow read, write, delete: if signedIn() && request.auth.uid == uid;
+    }
+  }
+}

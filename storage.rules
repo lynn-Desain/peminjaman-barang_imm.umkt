@@ -1,0 +1,14 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    function signedIn() { return request.auth != null; }
+    function isAdmin() {
+      return signedIn() && firestore.get(/databases/(default)/documents/userRoles/$(request.auth.uid)).data.role == 'admin';
+    }
+    match /items/{itemId}/{fileName} {
+      allow read: if signedIn();
+      allow create, update: if isAdmin() && request.resource != null && request.resource.size < 5 * 1024 * 1024 && request.resource.contentType.matches('image/.*');
+      allow delete: if isAdmin();
+    }
+  }
+}

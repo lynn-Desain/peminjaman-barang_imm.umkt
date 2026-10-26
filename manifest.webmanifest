@@ -1,0 +1,15 @@
+{
+  "name": "InventarisKu IMM × UMKT",
+  "short_name": "InventarisKu",
+  "description": "Inventaris, peminjaman, dan pengembalian barang organisasi IMM–UMKT.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#f6f8fc",
+  "theme_color": "#17264b",
+  "icons": [
+    { "src": "assets/logo-umkt.png", "sizes": "300x300", "type": "image/png", "purpose": "any maskable" },
+    { "src": "assets/logo-imm.png", "sizes": "200x200", "type": "image/png", "purpose": "any" }
+  ]
+}

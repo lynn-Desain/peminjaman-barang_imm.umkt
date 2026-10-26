@@ -1,0 +1,14 @@
+{
+  "firestore": { "rules": "firestore.rules" },
+  "storage": { "rules": "storage.rules" },
+  "functions": [{ "source": "functions", "codebase": "default" }],
+  "hosting": {
+    "public": ".",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**", "functions/**", "README.md", "firestore.rules", "storage.rules"],
+    "cleanUrls": true,
+    "headers": [
+      { "source": "**/*.@(js|css|webmanifest)", "headers": [{ "key": "Cache-Control", "value": "public,max-age=300" }] },
+      { "source": "firebase-messaging-sw.js", "headers": [{ "key": "Cache-Control", "value": "no-cache" }] }
+    ]
+  }
+}
